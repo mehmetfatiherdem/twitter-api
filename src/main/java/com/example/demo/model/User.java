@@ -1,16 +1,19 @@
 package com.example.demo.model;
 
 import com.example.demo.utils.Password;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
 
 @Entity(name = "user")
+@SQLDelete(sql = "UPDATE message SET is_deleted = true WHERE id=?")
+@Where(clause = "is_deleted=false")
 public class User {
     @Id
     @GeneratedValue
@@ -41,6 +44,33 @@ public class User {
 
     @Column(name = "provider_id")
     private String providerId;
+
+    @OneToMany(mappedBy = "sender")
+    private List<Message> messagesSent;
+
+    @OneToMany(mappedBy = "receiver")
+    private List<Message> messagesReceived;
+
+    //TODO: check this soft delete logic
+    @Column(name = "is_deleted")
+    private boolean isDeleted = Boolean.FALSE;
+
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
+    @Column(name = "deleted_at")
+    private Date deletedAt;
+
+
+    @PreUpdate
+    @PrePersist
+    protected void updateTimeStamps(){
+        updatedAt = new Date();
+        if(createdAt == null) createdAt = new Date();
+    }
 
     public User(){}
 
@@ -119,4 +149,41 @@ public class User {
     public void setProviderId(String providerId) {
         this.providerId = providerId;
     }
+
+    public List<Message> getMessagesSent() {
+        return messagesSent;
+    }
+
+    public void setMessagesSent(List<Message> messagesSent) {
+        this.messagesSent = messagesSent;
+    }
+
+    public List<Message> getMessagesReceived() {
+        return messagesReceived;
+    }
+
+    public void setMessagesReceived(List<Message> messagesReceived) {
+        this.messagesReceived = messagesReceived;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.isDeleted = deleted;
+    }
+
+    public Date getDeletedAt() {
+        return deletedAt;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
 }
