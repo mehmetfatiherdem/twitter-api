@@ -7,6 +7,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 
@@ -54,6 +55,9 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bookmark_id", referencedColumnName = "id")
     private Bookmark bookmark;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Retweet> retweets;
 
     //TODO: check this soft delete logic
     @Column(name = "is_deleted")
