@@ -51,6 +51,10 @@ public class User {
     @OneToMany(mappedBy = "receiver")
     private List<Message> messagesReceived;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "bookmark_id", referencedColumnName = "id")
+    private Bookmark bookmark;
+
     //TODO: check this soft delete logic
     @Column(name = "is_deleted")
     private boolean isDeleted = Boolean.FALSE;

@@ -5,6 +5,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -15,6 +16,7 @@ public class Tweet {
     @GeneratedValue
     private UUID id;
 
+    //FIXME: add join column here and mapped by user in user model
     @ManyToOne
     @Column(name = "user")
     private User user;
@@ -30,6 +32,9 @@ public class Tweet {
 
     @Column(name = "quote_tweet_count")
     private Long quoteTweetCount;
+
+    @ManyToMany(mappedBy = "bookmarkedTweets")
+    Set<Bookmark> bookmarksBelongTo;
 
     @Column(name = "is_deleted")
     private Boolean isDeleted = Boolean.FALSE;
