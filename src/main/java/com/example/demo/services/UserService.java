@@ -10,7 +10,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepo;
 
-    public void remove(UUID id){
+    public void removeById(UUID id){
         userRepo.deleteById(id);
     }
 }

@@ -9,7 +9,7 @@ public class TweetService {
     @Autowired
     private TweetRepository tweetRepo;
 
-    public void remove(UUID id){
+    public void removeById(UUID id){
         tweetRepo.deleteById(id);
     }
 }

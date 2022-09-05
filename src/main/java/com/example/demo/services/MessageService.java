@@ -9,7 +9,7 @@ public class MessageService {
     @Autowired
     private MessageRepository messageRepo;
 
-    public void remove(UUID id){
+    public void removeById(UUID id){
         messageRepo.deleteById(id);
     }
 }
