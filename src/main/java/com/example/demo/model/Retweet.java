@@ -5,39 +5,23 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@SQLDelete(sql = "UPDATE tweet SET is_deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE retweet SET is_deleted = true WHERE id=?")
 @Where(clause = "is_deleted=false")
-public class Tweet {
+public class Retweet {
     @Id
     @GeneratedValue
     private UUID id;
 
-    //FIXME: add join column here and mapped by user in user model
     @ManyToOne
-    @Column(name = "user")
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "text", length = 140)
-    private String text;
-
-    @Column(name = "like_count")
-    private Long likeCount;
-
-    @Column(name = "retweet_count")
-    private Long retweetCount;
-
-    @Column(name = "quote_tweet_count")
-    private Long quoteTweetCount;
-
-    @ManyToMany(mappedBy = "bookmarkedTweets")
-    Set<Bookmark> bookmarksBelongTo;
-
-    @OneToMany(mappedBy = "tweet")
-    private Set<Retweet> retweets;
+    @ManyToOne
+    @JoinColumn(name = "tweet_id")
+    private Tweet tweet;
 
     @Column(name = "is_deleted")
     private Boolean isDeleted = Boolean.FALSE;
@@ -58,12 +42,11 @@ public class Tweet {
         if(createdAt == null) createdAt = new Date();
     }
 
-    public Tweet(){}
+    public Retweet(){}
 
     public UUID getId() {
         return id;
     }
-
 
     public User getUser() {
         return user;
@@ -73,36 +56,12 @@ public class Tweet {
         this.user = user;
     }
 
-    public String getText() {
-        return text;
+    public Tweet getTweet() {
+        return tweet;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public Long getLikeCount() {
-        return likeCount;
-    }
-
-    public void setLikeCount(Long likeCount) {
-        this.likeCount = likeCount;
-    }
-
-    public Long getRetweetCount() {
-        return retweetCount;
-    }
-
-    public void setRetweetCount(Long retweetCount) {
-        this.retweetCount = retweetCount;
-    }
-
-    public Long getQuoteTweetCount() {
-        return quoteTweetCount;
-    }
-
-    public void setQuoteTweetCount(Long quoteTweetCount) {
-        this.quoteTweetCount = quoteTweetCount;
+    public void setTweet(Tweet tweet) {
+        this.tweet = tweet;
     }
 
     public Boolean getDeleted() {
