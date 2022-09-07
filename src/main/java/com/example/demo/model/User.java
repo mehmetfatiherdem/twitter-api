@@ -68,9 +68,17 @@ public class User {
     @JoinColumn(name = "follower_list_id", referencedColumnName = "id")
     private FollowerList followerList;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "following_list_id", referencedColumnName = "id")
+    private FollowingList followingList;
+
     @ManyToMany
     @JoinTable(name = "follower_list_belong_to", joinColumns = @JoinColumn(name = "follower_id"), inverseJoinColumns = @JoinColumn(name = "follower_list_id"))
     Set<FollowerList> followerListsBelongTo;
+
+    @ManyToMany
+    @JoinTable(name = "following_list_belong_to", joinColumns = @JoinColumn(name = "following_id"), inverseJoinColumns = @JoinColumn(name = "following_list_id"))
+    Set<FollowingList> followingListsBelongTo;
 
     //TODO: check this soft delete logic
     @Column(name = "is_deleted")
@@ -111,6 +119,15 @@ public class User {
 
     public UUID getId(){
         return this.id;
+    }
+
+
+    public Set<FollowingList> getFollowingListsBelongTo() {
+        return followingListsBelongTo;
+    }
+
+    public void setFollowingListsBelongTo(Set<FollowingList> followingListsBelongTo) {
+        this.followingListsBelongTo = followingListsBelongTo;
     }
 
     public FollowerList getFollowerList() {
