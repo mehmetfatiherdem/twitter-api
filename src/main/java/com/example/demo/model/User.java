@@ -59,6 +59,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Retweet> retweets;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "trend_topic_list_id", referencedColumnName = "id")
+    private TrendTopicList trendTopicList;
+
     //TODO: check this soft delete logic
     @Column(name = "is_deleted")
     private boolean isDeleted = Boolean.FALSE;

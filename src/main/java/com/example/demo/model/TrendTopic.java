@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -15,6 +16,9 @@ public class TrendTopic {
 
     @Column(name = "country")
     private String country;
+
+    @ManyToMany(mappedBy = "trendTopics")
+    Set<TrendTopicList> trendTopicListsBelongTo;
 
     @Column(name = "created_at")
     private Date createdAt;

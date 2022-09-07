@@ -9,6 +9,8 @@ public class TweetService {
     @Autowired
     private TweetRepository tweetRepo;
 
+    //TODO: check all services and models if the soft-delete is necessary and/or implemented correctly
+
     public void removeById(UUID id){
         tweetRepo.deleteById(id);
     }
