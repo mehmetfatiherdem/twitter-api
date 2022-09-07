@@ -63,6 +63,15 @@ public class User {
     @JoinColumn(name = "trend_topic_list_id", referencedColumnName = "id")
     private TrendTopicList trendTopicList;
 
+    //TODO: check all the getter-setters
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "follower_list_id", referencedColumnName = "id")
+    private FollowerList followerList;
+
+    @ManyToMany
+    @JoinTable(name = "follower_list_belong_to", joinColumns = @JoinColumn(name = "follower_id"), inverseJoinColumns = @JoinColumn(name = "follower_list_id"))
+    Set<FollowerList> followerListsBelongTo;
+
     //TODO: check this soft delete logic
     @Column(name = "is_deleted")
     private boolean isDeleted = Boolean.FALSE;
@@ -102,6 +111,22 @@ public class User {
 
     public UUID getId(){
         return this.id;
+    }
+
+    public FollowerList getFollowerList() {
+        return followerList;
+    }
+
+    public void setFollowerList(FollowerList followerList) {
+        this.followerList = followerList;
+    }
+
+    public Set<FollowerList> getFollowerListsBelongTo() {
+        return followerListsBelongTo;
+    }
+
+    public void setFollowerListsBelongTo(Set<FollowerList> followerListsBelongTo) {
+        this.followerListsBelongTo = followerListsBelongTo;
     }
 
     public void setName(String name){
@@ -182,6 +207,7 @@ public class User {
         return isDeleted;
     }
 
+    //TODO: check for this setDeleted. Does it conflict with soft-delete
     public void setDeleted(boolean deleted) {
         this.isDeleted = deleted;
     }
