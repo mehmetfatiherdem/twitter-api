@@ -56,6 +56,10 @@ public class User {
     @JoinColumn(name = "bookmark_id", referencedColumnName = "id")
     private Bookmark bookmark;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "message_list_id", referencedColumnName = "id")
+    private MessageList messageList;
+
     @OneToMany(mappedBy = "user")
     private Set<Retweet> retweets;
 
@@ -88,6 +92,9 @@ public class User {
     @ManyToMany
     @JoinTable(name = "following_list_belong_to", joinColumns = @JoinColumn(name = "following_id"), inverseJoinColumns = @JoinColumn(name = "following_list_id"))
     Set<FollowingList> followingListsBelongTo;
+
+    @ManyToMany(mappedBy = "messageListUsers")
+    Set<MessageList> messageListsBelongTo;
 
     //TODO: check this soft delete logic
     @Column(name = "is_deleted")
