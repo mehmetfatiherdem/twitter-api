@@ -42,6 +42,9 @@ public class Tweet {
     @OneToMany(mappedBy = "tweet")
     private Set<TweetReply> tweetReplies;
 
+    @OneToMany(mappedBy = "tweet", cascade = CascadeType.ALL)
+    private Set<QuoteTweet> quoteTweets;
+
     //TODO: check this cascade
     @ManyToOne
     @JoinColumn(name = "thread_id")
