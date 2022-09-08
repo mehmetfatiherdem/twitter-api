@@ -62,6 +62,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<TweetReply> tweetReplies;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Thread> threads;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "trend_topic_list_id", referencedColumnName = "id")
     private TrendTopicList trendTopicList;
