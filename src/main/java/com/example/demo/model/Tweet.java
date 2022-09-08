@@ -39,6 +39,9 @@ public class Tweet {
     @OneToMany(mappedBy = "tweet")
     private Set<Retweet> retweets;
 
+    @OneToMany(mappedBy = "tweet")
+    private Set<TweetReply> tweetReplies;
+
     @Column(name = "is_deleted")
     private Boolean isDeleted = Boolean.FALSE;
 
