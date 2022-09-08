@@ -42,6 +42,11 @@ public class Tweet {
     @OneToMany(mappedBy = "tweet")
     private Set<TweetReply> tweetReplies;
 
+    //TODO: check this cascade
+    @ManyToOne
+    @JoinColumn(name = "thread_id")
+    private Thread thread;
+
     @Column(name = "is_deleted")
     private Boolean isDeleted = Boolean.FALSE;
 
