@@ -59,6 +59,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Retweet> retweets;
 
+    @OneToMany(mappedBy = "user")
+    private Set<TweetReply> tweetReplies;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "trend_topic_list_id", referencedColumnName = "id")
     private TrendTopicList trendTopicList;
