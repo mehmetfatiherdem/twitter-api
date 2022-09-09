@@ -15,8 +15,7 @@ public class Bookmark {
     private User owner;
 
     @ManyToMany
-    //FIXME: typo in join table name
-    @JoinTable(name = "bookmared_tweet", joinColumns = @JoinColumn(name = "bookmark_id"), inverseJoinColumns = @JoinColumn(name = "tweet_id"))
+    @JoinTable(name = "bookmarked_tweet", joinColumns = @JoinColumn(name = "bookmark_id"), inverseJoinColumns = @JoinColumn(name = "tweet_id"))
     Set<Tweet> bookmarkedTweets;
 
     @Column(name = "created_at")
