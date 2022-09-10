@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -7,6 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "TrendTopic")
+@Where(clause = "is_deleted=false")
 public class TrendTopic {
     @Id
     @GeneratedValue
@@ -20,6 +23,9 @@ public class TrendTopic {
 
     @ManyToMany(mappedBy = "trendTopics")
     Set<TrendTopicList> trendTopicListsBelongTo;
+
+    @Column(name = "is_deleted")
+    private Boolean isDeleted = Boolean.FALSE;
 
     @Column(name = "created_at")
     private Date createdAt;
@@ -78,5 +84,14 @@ public class TrendTopic {
 
     public void setTrendTopicListsBelongTo(Set<TrendTopicList> trendTopicListsBelongTo) {
         this.trendTopicListsBelongTo = trendTopicListsBelongTo;
+    }
+
+    public Boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
+        this.deletedAt = new Date();
     }
 }

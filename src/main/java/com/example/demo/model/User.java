@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 import com.example.demo.utils.Password;
-import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -14,7 +13,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "User")
-@SQLDelete(sql = "UPDATE message SET is_deleted = true WHERE id=?")
 @Where(clause = "is_deleted=false")
 public class User {
     @Id
@@ -95,8 +93,7 @@ public class User {
 
     @ManyToMany(mappedBy = "messageListUsers")
     Set<MessageList> messageListsBelongTo;
-
-    //TODO: check this soft delete logic
+    
     @Column(name = "is_deleted")
     private boolean isDeleted = Boolean.FALSE;
 
@@ -240,9 +237,9 @@ public class User {
         return isDeleted;
     }
 
-    //TODO: check for this setDeleted. Does it conflict with soft-delete
     public void setDeleted(boolean deleted) {
         this.isDeleted = deleted;
+        this.deletedAt = new Date();
     }
 
     public Date getDeletedAt() {

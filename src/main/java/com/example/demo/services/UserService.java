@@ -5,12 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.UUID;
 
+
 public class UserService {
 
     @Autowired
     private UserRepository userRepo;
 
-    public void removeById(UUID id){
-        userRepo.deleteById(id);
+    public void softDelete(UUID id){
+        var user = userRepo.findById(id).orElseThrow();
+        user.setDeleted(true);
     }
+
 }

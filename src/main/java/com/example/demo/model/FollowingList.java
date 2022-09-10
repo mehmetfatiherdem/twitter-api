@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -8,10 +7,8 @@ import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
-//TODO: check all the sql delete queries
 @Entity
 @Table(name = "FollowingList")
-@SQLDelete(sql = "UPDATE FollowingList SET is_deleted = true WHERE id=?")
 @Where(clause = "is_deleted=false")
 public class FollowingList {
     @Id
@@ -64,8 +61,13 @@ public class FollowingList {
         this.followings = followings;
     }
 
-    public boolean isDeleted() {
+    public Boolean isDeleted() {
         return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+        this.deletedAt = new Date();
     }
 
     public Date getDeletedAt() {
