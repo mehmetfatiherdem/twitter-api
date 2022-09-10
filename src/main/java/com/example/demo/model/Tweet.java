@@ -37,16 +37,15 @@ public class Tweet {
     @ManyToMany(mappedBy = "bookmarkedTweets")
     Set<Bookmark> bookmarksBelongTo;
 
-    @OneToMany(mappedBy = "tweet")
+    @OneToMany(mappedBy = "tweet", cascade = CascadeType.ALL)
     private Set<Retweet> retweets;
 
-    @OneToMany(mappedBy = "tweet")
+    @OneToMany(mappedBy = "tweet", cascade = CascadeType.ALL)
     private Set<TweetReply> tweetReplies;
 
     @OneToMany(mappedBy = "tweet", cascade = CascadeType.ALL)
     private Set<QuoteTweet> quoteTweets;
 
-    //TODO: check this cascade
     @ManyToOne
     @JoinColumn(name = "thread_id")
     private Thread thread;

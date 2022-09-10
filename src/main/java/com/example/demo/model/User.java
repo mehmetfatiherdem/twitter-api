@@ -48,10 +48,10 @@ public class User {
     @Column(name = "provider_id")
     private String providerId;
 
-    @OneToMany(mappedBy = "sender")
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
     private List<Message> messagesSent;
 
-    @OneToMany(mappedBy = "receiver")
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
     private List<Message> messagesReceived;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -62,13 +62,13 @@ public class User {
     @JoinColumn(name = "message_list_id", referencedColumnName = "id")
     private MessageList messageList;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Retweet> retweets;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<TweetReply> tweetReplies;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Tweet> tweets;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
