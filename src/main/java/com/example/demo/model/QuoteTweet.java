@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -9,7 +8,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "QuoteTweet")
-@SQLDelete(sql = "UPDATE QuoteTweet SET is_deleted=true WHERE id=?")
 @Where(clause = "is_deleted=false")
 public class QuoteTweet {
     @Id
@@ -79,7 +77,14 @@ public class QuoteTweet {
         this.text = text;
     }
 
-    public boolean isDeleted() { return isDeleted; }
+    public Boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
+        this.deletedAt = new Date();
+    }
 
     public Date getCreatedAt() {
         return createdAt;
@@ -93,9 +98,6 @@ public class QuoteTweet {
         return deletedAt;
     }
 
-    public Boolean getDeleted() {
-        return isDeleted;
-    }
 
 
 }

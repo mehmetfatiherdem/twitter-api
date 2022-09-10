@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -9,7 +8,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "Message")
-@SQLDelete(sql = "UPDATE message SET is_deleted = true WHERE id=?")
 @Where(clause = "is_deleted=false")
 public class Message {
     @Id
@@ -28,7 +26,6 @@ public class Message {
     @Column(name = "text")
     private String text;
 
-    //TODO: check this soft delete logic
     @Column(name = "is_deleted")
     private boolean isDeleted = Boolean.FALSE;
 
@@ -81,12 +78,13 @@ public class Message {
         this.text = text;
     }
 
-    public boolean isDeleted() {
+    public Boolean isDeleted() {
         return isDeleted;
     }
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+        this.deletedAt = new Date();
     }
 
     public Date getCreatedAt() {

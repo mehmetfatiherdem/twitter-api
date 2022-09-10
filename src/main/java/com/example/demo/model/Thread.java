@@ -1,13 +1,15 @@
 package com.example.demo.model;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
-//TODO: check if we need soft delete here
 @Entity
 @Table(name = "Thread")
+@Where(clause = "is_deleted=false")
 public class Thread {
     @Id
     @GeneratedValue
@@ -19,6 +21,9 @@ public class Thread {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "thread")
     private Set<Tweet> tweets;
+
+    @Column(name = "is_deleted")
+    private Boolean isDeleted = Boolean.FALSE;
 
     @Column(name = "created_at")
     private Date createdAt;
@@ -47,6 +52,15 @@ public class Thread {
 
     public void setTweets(Set<Tweet> tweets) {
         this.tweets = tweets;
+    }
+
+    public Boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
+        this.deletedAt = new Date();
     }
 
     public Date getCreatedAt() {

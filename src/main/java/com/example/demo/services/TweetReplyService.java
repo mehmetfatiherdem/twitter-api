@@ -5,12 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.UUID;
 
+
 public class TweetReplyService {
 
     @Autowired
     private TweetReplyRepository tweetReplyRepo;
 
-    public void removeById(UUID id){
-        tweetReplyRepo.deleteById(id);
+    public void softDelete(UUID id){
+        var tweetReply = tweetReplyRepo.findById(id).orElseThrow();
+        tweetReply.setDeleted(true);
     }
+
 }

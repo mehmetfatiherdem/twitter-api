@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -7,6 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "TrendTopicList")
+@Where(clause = "is_deleted")
 public class TrendTopicList {
     @Id
     @GeneratedValue
@@ -19,6 +22,9 @@ public class TrendTopicList {
     @JoinTable(name = "ttlist_tt", joinColumns = @JoinColumn(name = "trend_topic_list_id"), inverseJoinColumns = @JoinColumn(name = "trend_topic_id"))
     Set<TrendTopic> trendTopics;
 
+    @Column(name = "is_deleted")
+    private Boolean isDeleted = Boolean.FALSE;
+
     @Column(name = "created_at")
     private Date createdAt;
 
@@ -26,7 +32,8 @@ public class TrendTopicList {
     private Date updatedAt;
 
     @Column(name = "deleted_at")
-    private Date deleted_at;
+    private Date deletedAt;
+
 
     @PreUpdate
     @PrePersist
@@ -55,6 +62,15 @@ public class TrendTopicList {
         return trendTopics;
     }
 
+    public Boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
+        this.deletedAt = new Date();
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -63,8 +79,8 @@ public class TrendTopicList {
         return updatedAt;
     }
 
-    public Date getDeleted_at() {
-        return deleted_at;
+    public Date getDeletedAt() {
+        return deletedAt;
     }
 
 }

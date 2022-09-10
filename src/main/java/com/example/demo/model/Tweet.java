@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -10,7 +9,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "Tweet")
-@SQLDelete(sql = "UPDATE tweet SET is_deleted = true WHERE id=?")
 @Where(clause = "is_deleted=false")
 public class Tweet {
     @Id
@@ -19,7 +17,7 @@ public class Tweet {
 
     //FIXME: add join column here and mapped by user in user model
     @ManyToOne
-    @Column(name = "user")
+    @JoinColumn(name = "user")
     private User user;
 
     @Column(name = "text", length = 140)
@@ -117,12 +115,13 @@ public class Tweet {
         this.quoteTweetCount = quoteTweetCount;
     }
 
-    public Boolean getDeleted() {
+    public Boolean isDeleted() {
         return isDeleted;
     }
 
     public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
+        this.deletedAt = new Date();
     }
 
     public Date getCreatedAt() {

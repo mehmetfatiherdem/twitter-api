@@ -5,13 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.UUID;
 
+
 public class TweetService {
     @Autowired
     private TweetRepository tweetRepo;
 
-    //TODO: check all services and models if the soft-delete is necessary and/or implemented correctly
-
-    public void removeById(UUID id){
-        tweetRepo.deleteById(id);
+    public void softDelete(UUID id){
+        var tweet = tweetRepo.findById(id).orElseThrow();
+        tweet.setDeleted(true);
     }
+
 }

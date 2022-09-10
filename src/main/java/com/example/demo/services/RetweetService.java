@@ -9,7 +9,9 @@ public class RetweetService {
     @Autowired
     private RetweetRepository retweetRepo;
 
-    public void removeById(UUID id){
-        retweetRepo.deleteById(id);
+    public void softDelete(UUID id){
+        var retweet = retweetRepo.findById(id).orElseThrow();
+        retweet.setDeleted(true);
     }
+
 }
