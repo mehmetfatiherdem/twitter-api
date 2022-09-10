@@ -14,7 +14,6 @@ public class Message {
     @GeneratedValue
     private UUID id;
 
-    //TODO: check the cascade options for all relations before any db action
     @ManyToOne
     @JoinColumn(name = "sender_id")
     private User sender;
