@@ -135,4 +135,44 @@ public class Tweet {
     public Date getDeletedAt() {
         return deletedAt;
     }
+
+    public Set<Bookmark> getBookmarksBelongTo() {
+        return bookmarksBelongTo;
+    }
+
+    public void setBookmarksBelongTo(Set<Bookmark> bookmarksBelongTo) {
+        this.bookmarksBelongTo = bookmarksBelongTo;
+    }
+
+    public void setRetweets(Set<Retweet> retweets) {
+        this.retweets = retweets;
+    }
+
+    public void setTweetReplies(Set<TweetReply> tweetReplies) {
+        this.tweetReplies = tweetReplies;
+    }
+
+    public void setQuoteTweets(Set<QuoteTweet> quoteTweets) {
+        this.quoteTweets = quoteTweets;
+    }
+
+    public void setThread(Thread thread) {
+        this.thread = thread;
+    }
+
+    public Set<Retweet> getRetweets() {
+        return retweets;
+    }
+
+    public Set<TweetReply> getTweetReplies() {
+        return tweetReplies;
+    }
+
+    public Set<QuoteTweet> getQuoteTweets() {
+        return quoteTweets;
+    }
+
+    public Thread getThread() {
+        return thread;
+    }
 }

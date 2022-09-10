@@ -34,4 +34,36 @@ public class TrendTopicList {
         if(createdAt == null) createdAt = new Date();
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setTrendTopics(Set<TrendTopic> trendTopics) {
+        this.trendTopics = trendTopics;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Set<TrendTopic> getTrendTopics() {
+        return trendTopics;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public Date getDeleted_at() {
+        return deleted_at;
+    }
+
 }

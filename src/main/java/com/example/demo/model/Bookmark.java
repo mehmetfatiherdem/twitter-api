@@ -54,4 +54,11 @@ public class Bookmark {
         return updatedAt;
     }
 
+    public Set<Tweet> getBookmarkedTweets() {
+        return bookmarkedTweets;
+    }
+
+    public void setBookmarkedTweets(Set<Tweet> bookmarkedTweets) {
+        this.bookmarkedTweets = bookmarkedTweets;
+    }
 }

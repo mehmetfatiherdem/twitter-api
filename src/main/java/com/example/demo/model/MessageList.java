@@ -60,4 +60,6 @@ public class MessageList {
     public Date getUpdatedAt() {
         return updatedAt;
     }
+
+
 }

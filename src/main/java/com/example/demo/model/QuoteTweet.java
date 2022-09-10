@@ -92,6 +92,9 @@ public class QuoteTweet {
         return deletedAt;
     }
 
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
 
 
 }
