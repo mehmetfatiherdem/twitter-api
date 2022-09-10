@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
+@Table(name = "Message")
 @SQLDelete(sql = "UPDATE message SET is_deleted = true WHERE id=?")
 @Where(clause = "is_deleted=false")
 public class Message {

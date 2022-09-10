@@ -7,7 +7,8 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
-@Entity(name = "TweetReply")
+@Entity
+@Table(name = "TweetReply")
 @SQLDelete(sql = "UPDATE TweetReply SET is_deleted = true WHERE id = ?")
 @Where(clause = "is_deleted = false")
 public class TweetReply {

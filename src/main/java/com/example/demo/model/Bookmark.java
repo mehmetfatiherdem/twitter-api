@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@Table(name = "Bookmark")
 public class Bookmark {
     @Id
     @GeneratedValue

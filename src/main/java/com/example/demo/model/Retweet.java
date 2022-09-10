@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
+@Table(name = "Retweet")
 @SQLDelete(sql = "UPDATE retweet SET is_deleted = true WHERE id=?")
 @Where(clause = "is_deleted=false")
 public class Retweet {

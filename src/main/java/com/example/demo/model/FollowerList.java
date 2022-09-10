@@ -8,8 +8,9 @@ import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
-//TODO: check all the table name defaults and sql delete queries
-@Entity(name = "FollowerList")
+//TODO: check all the sql delete queries
+@Entity
+@Table(name = "FollowerList")
 @SQLDelete(sql = "UPDATE FollowerList SET is_deleted = true WHERE id=?")
 @Where(clause = "is_deleted=false")
 public class FollowerList {
