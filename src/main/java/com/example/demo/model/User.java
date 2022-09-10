@@ -12,7 +12,8 @@ import java.util.UUID;
 
 
 
-@Entity(name = "user")
+@Entity
+@Table(name = "User")
 @SQLDelete(sql = "UPDATE message SET is_deleted = true WHERE id=?")
 @Where(clause = "is_deleted=false")
 public class User {

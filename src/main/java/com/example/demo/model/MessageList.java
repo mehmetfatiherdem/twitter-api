@@ -5,7 +5,8 @@ import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
-@Entity(name = "MessageList")
+@Entity
+@Table(name = "MessageList")
 public class MessageList {
     @Id
     @GeneratedValue

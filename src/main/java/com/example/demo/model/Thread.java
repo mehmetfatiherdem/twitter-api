@@ -6,7 +6,8 @@ import java.util.Set;
 import java.util.UUID;
 
 //TODO: check if we need soft delete here
-@Entity(name = "Thread")
+@Entity
+@Table(name = "Thread")
 public class Thread {
     @Id
     @GeneratedValue
@@ -27,7 +28,6 @@ public class Thread {
 
     @Column(name = "deleted_at")
     private Date deletedAt;
-
 
     public Thread(){}
 
