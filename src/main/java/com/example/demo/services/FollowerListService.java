@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.UUID;
 
 public class FollowerListService {
-    @Autowired //TODO: check for all autowired annotations
+    @Autowired
     private FollowerListRepository followerListRepo;
 
     public void removeById(UUID id){
