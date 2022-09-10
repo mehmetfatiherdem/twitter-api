@@ -65,6 +65,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<TweetReply> tweetReplies;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Tweet> tweets;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Thread> threads;
 

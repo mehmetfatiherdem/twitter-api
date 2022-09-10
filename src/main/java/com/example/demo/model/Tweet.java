@@ -15,9 +15,8 @@ public class Tweet {
     @GeneratedValue
     private UUID id;
 
-    //FIXME: add join column here and mapped by user in user model
     @ManyToOne
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "text", length = 140)
