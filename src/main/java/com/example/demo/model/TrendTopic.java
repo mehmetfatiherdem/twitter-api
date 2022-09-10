@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,7 +11,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "TrendTopic")
-@Where(clause = "is_deleted=false")
+@FilterDef(name = "deletedFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
+@Filter(name = "deletedFilter", condition = "deleted = :isDeleted")
 public class TrendTopic {
     @Id
     @GeneratedValue
