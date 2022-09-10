@@ -29,6 +29,7 @@ public class TrendTopic {
     @Column(name = "deleted_at")
     private Date deletedAt;
 
+
     @PreUpdate
     @PrePersist
     protected void updateTimeStamps(){
@@ -68,5 +69,13 @@ public class TrendTopic {
 
     public Date getDeletedAt() {
         return deletedAt;
+    }
+
+    public Set<TrendTopicList> getTrendTopicListsBelongTo() {
+        return trendTopicListsBelongTo;
+    }
+
+    public void setTrendTopicListsBelongTo(Set<TrendTopicList> trendTopicListsBelongTo) {
+        this.trendTopicListsBelongTo = trendTopicListsBelongTo;
     }
 }

@@ -76,7 +76,6 @@ public class User {
     @JoinColumn(name = "trend_topic_list_id", referencedColumnName = "id")
     private TrendTopicList trendTopicList;
 
-    //TODO: check all the getter-setters
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "follower_list_id", referencedColumnName = "id")
     private FollowerList followerList;
@@ -251,6 +250,78 @@ public class User {
 
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    public void setBookmark(Bookmark bookmark) {
+        this.bookmark = bookmark;
+    }
+
+    public void setMessageList(MessageList messageList) {
+        this.messageList = messageList;
+    }
+
+    public void setRetweets(Set<Retweet> retweets) {
+        this.retweets = retweets;
+    }
+
+    public void setTweetReplies(Set<TweetReply> tweetReplies) {
+        this.tweetReplies = tweetReplies;
+    }
+
+    public void setThreads(Set<Thread> threads) {
+        this.threads = threads;
+    }
+
+    public void setQuoteTweets(Set<QuoteTweet> quoteTweets) {
+        this.quoteTweets = quoteTweets;
+    }
+
+    public void setTrendTopicList(TrendTopicList trendTopicList) {
+        this.trendTopicList = trendTopicList;
+    }
+
+    public void setFollowingList(FollowingList followingList) {
+        this.followingList = followingList;
+    }
+
+    public void setMessageListsBelongTo(Set<MessageList> messageListsBelongTo) {
+        this.messageListsBelongTo = messageListsBelongTo;
+    }
+
+    public Bookmark getBookmark() {
+        return bookmark;
+    }
+
+    public MessageList getMessageList() {
+        return messageList;
+    }
+
+    public Set<Retweet> getRetweets() {
+        return retweets;
+    }
+
+    public Set<TweetReply> getTweetReplies() {
+        return tweetReplies;
+    }
+
+    public Set<Thread> getThreads() {
+        return threads;
+    }
+
+    public Set<QuoteTweet> getQuoteTweets() {
+        return quoteTweets;
+    }
+
+    public TrendTopicList getTrendTopicList() {
+        return trendTopicList;
+    }
+
+    public FollowingList getFollowingList() {
+        return followingList;
+    }
+
+    public Set<MessageList> getMessageListsBelongTo() {
+        return messageListsBelongTo;
     }
 
     public Date getUpdatedAt() {
