@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 import com.example.demo.utils.Password;
-import com.example.demo.utils.validation.UserRegisterValidation;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
@@ -186,7 +185,6 @@ public class User {
     }
 
     public void setEmail(String email){
-        if(UserRegisterValidation.isEmailValid(email))
             this.email = email;
     }
 
