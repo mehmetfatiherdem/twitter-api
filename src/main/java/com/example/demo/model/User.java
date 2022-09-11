@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import com.example.demo.utils.Password;
+import com.example.demo.utils.validation.UserRegisterValidation;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
@@ -10,7 +11,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-
 
 
 @Entity
@@ -29,7 +29,7 @@ public class User {
     private String lastName;
 
     @Column(name = "email")
-    private String email;  //TODO: find a subtle way to check email
+    private String email;
 
     @Column(name = "password")
     private String password;
@@ -43,7 +43,7 @@ public class User {
     private UserRole role = UserRole.NORMAL;
 
     @Column(name = "provider")
-    private String provider;
+    private String provider = "local";
 
     @Column(name = "provider_id")
     private String providerId;
@@ -185,8 +185,9 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String email){
+        if(UserRegisterValidation.isEmailValid(email))
+            this.email = email;
     }
 
     public String getPassword() {
