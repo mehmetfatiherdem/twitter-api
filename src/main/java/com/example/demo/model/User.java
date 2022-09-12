@@ -13,7 +13,7 @@ import java.util.UUID;
 
 
 @Entity
-@Table(name = "User")
+@Table(name = "`user`")
 @FilterDef(name = "deletedFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
 @Filter(name = "deletedFilter", condition = "deleted = :isDeleted")
 public class User {
@@ -21,10 +21,10 @@ public class User {
     @GeneratedValue
     private UUID id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "email")
@@ -71,7 +71,7 @@ public class User {
     private Set<Tweet> tweets;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Thread> threads;
+    private Set<TweetThread> threads;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<QuoteTweet> quoteTweets;
@@ -281,7 +281,7 @@ public class User {
         this.tweetReplies = tweetReplies;
     }
 
-    public void setThreads(Set<Thread> threads) {
+    public void setThreads(Set<TweetThread> threads) {
         this.threads = threads;
     }
 
@@ -317,7 +317,7 @@ public class User {
         return tweetReplies;
     }
 
-    public Set<Thread> getThreads() {
+    public Set<TweetThread> getThreads() {
         return threads;
     }
 
