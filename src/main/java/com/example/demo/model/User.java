@@ -134,6 +134,16 @@ public class User {
     }
 
 
+    @Override
+    public String toString(){
+        return "{" +
+                "\"id\": \"" + this.id + "\",\n" +
+                "\"name\": \"" + this.name + "\",\n" +
+                "\"lastname\": \"" + this.lastName + "\",\n" +
+                "\"email\": \"" + this.email + "\",\n"
+                ;
+    }
+
 
     public UUID getId(){
         return this.id;
