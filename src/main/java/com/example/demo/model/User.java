@@ -140,7 +140,8 @@ public class User {
                 "\"id\": \"" + this.id + "\",\n" +
                 "\"name\": \"" + this.name + "\",\n" +
                 "\"lastname\": \"" + this.lastName + "\",\n" +
-                "\"email\": \"" + this.email + "\",\n"
+                "\"email\": \"" + this.email + "\"\n" +
+                "}"
                 ;
     }
 
