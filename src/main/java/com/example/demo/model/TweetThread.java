@@ -10,10 +10,9 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Thread")
 @FilterDef(name = "deletedFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
 @Filter(name = "deletedFilter", condition = "deleted = :isDeleted")
-public class Thread {
+public class TweetThread {
     @Id
     @GeneratedValue
     private UUID id;
@@ -37,7 +36,7 @@ public class Thread {
     @Column(name = "deleted_at")
     private Date deletedAt;
 
-    public Thread(){}
+    public TweetThread(){}
 
     public UUID getId(){ return this.id; }
 

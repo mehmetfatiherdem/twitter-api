@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Retweet")
 @FilterDef(name = "deletedFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
 @Filter(name = "deletedFilter", condition = "deleted = :isDeleted")
 public class Retweet {

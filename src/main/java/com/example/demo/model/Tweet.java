@@ -10,7 +10,6 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Tweet")
 @FilterDef(name = "deletedFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
 @Filter(name = "deletedFilter", condition = "deleted = :isDeleted")
 public class Tweet {
@@ -48,7 +47,7 @@ public class Tweet {
 
     @ManyToOne
     @JoinColumn(name = "thread_id")
-    private Thread thread;
+    private TweetThread thread;
 
     @Column(name = "is_deleted")
     private Boolean isDeleted = Boolean.FALSE;
@@ -157,8 +156,8 @@ public class Tweet {
         this.quoteTweets = quoteTweets;
     }
 
-    public void setThread(Thread thread) {
-        this.thread = thread;
+    public void setThread(TweetThread tweetThread) {
+        this.thread = tweetThread;
     }
 
     public Set<Retweet> getRetweets() {
@@ -173,7 +172,7 @@ public class Tweet {
         return quoteTweets;
     }
 
-    public Thread getThread() {
+    public TweetThread getThread() {
         return thread;
     }
 }

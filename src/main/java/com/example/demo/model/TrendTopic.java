@@ -10,7 +10,6 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "TrendTopic")
 @FilterDef(name = "deletedFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
 @Filter(name = "deletedFilter", condition = "deleted = :isDeleted")
 public class TrendTopic {
