@@ -25,7 +25,7 @@ public class AuthService implements IAuthService{
         user.setName(dto.getName());
         user.setLastName(dto.getLastName());
         user.setEmail(dto.getEmail());
-        
+        user.setPassword(dto.getPassword()); //FIXME: check why password hashing takes a lot of time
 
         userRepo.save(user);
 

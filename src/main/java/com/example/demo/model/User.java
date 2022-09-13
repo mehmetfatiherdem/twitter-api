@@ -134,9 +134,10 @@ public class User {
     }
 
 
+    //TODO: find a better JSON serialize method
     @Override
     public String toString(){
-        return "{" +
+        return "{\n" +
                 "\"id\": \"" + this.id + "\",\n" +
                 "\"name\": \"" + this.name + "\",\n" +
                 "\"lastname\": \"" + this.lastName + "\",\n" +
