@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-
 @Entity
 @Table(name = "`user`")
 @FilterDef(name = "deletedFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
@@ -33,13 +32,11 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    private enum UserRole{
-        NORMAL,
-        ADMIN
-    }
-
-    @Column(name = "role")
-    private UserRole role = UserRole.NORMAL;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles;
 
     @Column(name = "provider")
     private String provider = "local";
@@ -210,13 +207,6 @@ public class User {
 
     }
 
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
 
     public String getProvider() {
         return provider;
@@ -343,4 +333,11 @@ public class User {
         return updatedAt;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }

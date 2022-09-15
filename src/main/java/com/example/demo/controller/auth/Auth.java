@@ -5,25 +5,18 @@ import com.example.demo.exception.auth.UserAlreadyExistsException;
 import com.example.demo.model.User;
 import com.example.demo.services.IAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/api/auth")
 public class Auth {
 
     @Autowired
     private IAuthService authService;
 
-    @GetMapping("/home")
-    public String home(){
-        return "This is the home page";
-    }
-
-    @PostMapping("/auth/signup")
+    @PostMapping("/signup")
     public String signUp(@RequestBody @Valid UserRegisterDTO dto) {
         try {
 
@@ -36,5 +29,11 @@ public class Auth {
         }
 
         return "something went wrong";
+    }
+
+    //FIXME: change this to POST
+    @GetMapping("/signin")
+    public String signIn() {
+       return "sign in page";
     }
 }
