@@ -6,11 +6,7 @@ import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-
+import java.util.*;
 
 @Entity
 @Table(name = "`user`")
@@ -33,13 +29,11 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    private enum UserRole{
-        NORMAL,
-        ADMIN
-    }
-
-    @Column(name = "role")
-    private UserRole role = UserRole.NORMAL;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles = new HashSet<>();
 
     @Column(name = "provider")
     private String provider = "local";
@@ -210,13 +204,6 @@ public class User {
 
     }
 
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
 
     public String getProvider() {
         return provider;
@@ -343,4 +330,15 @@ public class User {
         return updatedAt;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
 }

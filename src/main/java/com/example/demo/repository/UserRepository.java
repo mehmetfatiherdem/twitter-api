@@ -11,6 +11,7 @@ import java.util.UUID;
 public interface UserRepository extends CrudRepository<User, UUID> {
 
     //TODO: move this to a custom repository see: https://www.baeldung.com/spring-data-jpa-query#2-custom-repositories-and-the-jpa-criteria-api
+    //TODO: we do not need the Query annotation probably JPA will interpret by the method name
     @Query("SELECT u FROM User u WHERE u.email = ?1 ")
     User findByEmail(String email);
 

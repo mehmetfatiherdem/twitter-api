@@ -8,12 +8,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class }) //TODO: remove this exclude
+@SpringBootApplication
 @RestController
 public class MainApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MainApplication.class, args);
+	}
+
+	@GetMapping("/home")
+	public String home(){
+		return "This is the home page";
 	}
 
 }

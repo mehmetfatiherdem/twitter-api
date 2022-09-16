@@ -7,4 +7,10 @@ public class Password {
         String hashed = encoder.encode(password);
         return hashed;
     }
+
+    public static Boolean matchPassword(String password, String hash){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.matches(password, hash);
+    }
+    
 }
