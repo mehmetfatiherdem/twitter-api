@@ -29,7 +29,6 @@ public class AuthService implements IAuthService{
     @Autowired
     private RoleRepository roleRepo;
 
-
     @Autowired
     private JWTTokenProvider tokenProvider;
 
@@ -49,7 +48,7 @@ public class AuthService implements IAuthService{
         user.setName(dto.getName());
         user.setLastName(dto.getLastName());
         user.setEmail(dto.getEmail());
-        user.setPassword(dto.getPassword()); //FIXME: check why password hashing takes a lot of time: https://stackoverflow.com/questions/51777464/why-is-spring-boot-security-basic-authentication-slow#:~:text=The%20number%20of%20rounds%20that%20this%20java%20code%20used%20for%20generating%20the%20BCrypt%20encoded%20password%20is%2016%20which%20is%20too%20high.%20the%20standard%20round%20number%20that%20can%20help%20to%20serve%20the%20balance%20between%20time%2C%20memory%20and%20security%20is%2010.
+        user.setPassword(dto.getPassword());
 
         user.addRole(role);
 

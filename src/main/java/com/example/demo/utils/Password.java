@@ -3,7 +3,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class Password {
     public static String hash(String password){
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
         String hashed = encoder.encode(password);
         return hashed;
     }
