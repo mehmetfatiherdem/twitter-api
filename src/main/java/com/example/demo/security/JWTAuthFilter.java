@@ -28,9 +28,9 @@ public class JWTAuthFilter extends OncePerRequestFilter {
         // validate token
         if(StringUtils.hasText(token) && tokenProvider.validateToken(token)){
             // get username from token
-            String username = tokenProvider.getUsernameFromJWT(token);
+            String email = tokenProvider.getEmailFromJWT(token);
             // load user associated with token
-            UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities()
@@ -46,7 +46,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     private String getJWTfromRequest(HttpServletRequest request){
         String bearerToken = request.getHeader("Authorization");
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")){
-            return bearerToken.substring(7, bearerToken.length());
+            return bearerToken.substring(7);
         }
         return null;
     }

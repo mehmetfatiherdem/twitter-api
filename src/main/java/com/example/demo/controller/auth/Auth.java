@@ -5,8 +5,10 @@ import com.example.demo.dto.UserRegisterDTO;
 import com.example.demo.exception.auth.UserAlreadyExistsException;
 import com.example.demo.exception.auth.UserDoesNotExistException;
 import com.example.demo.model.User;
+import com.example.demo.payload.JWTAuthResponse;
 import com.example.demo.services.IAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,14 +35,16 @@ public class Auth {
     }
 
     @PostMapping("/api/auth/signin")
-    public String signIn(@RequestBody @Valid UserLogInDTO dto) {
+    public ResponseEntity<JWTAuthResponse> signIn(@RequestBody @Valid UserLogInDTO dto) {
        try {
-           return authService.signIn(dto);
+           var jwtAuthResponse = authService.signIn(dto);
+
+           return ResponseEntity.ok(jwtAuthResponse);
 
        }catch (UserDoesNotExistException ex){
 
        }
 
-        return "sign in page";
+        return ResponseEntity.ok(null);
     }
 }

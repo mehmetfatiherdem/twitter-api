@@ -1,3 +1,4 @@
+/*
 package com.example.demo.seeder;
 
 import com.example.demo.model.Role;
@@ -8,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+//FIXME: find a way not to run this every time we run the app
 @Configuration
 public class RoleSeeder {
 
@@ -22,3 +24,4 @@ public class RoleSeeder {
     }
 
 }
+*/
