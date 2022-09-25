@@ -25,12 +25,15 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // get JWT (token) from http request
         String token = getJWTfromRequest(request);
+
         // validate token
         if(StringUtils.hasText(token) && tokenProvider.validateToken(token)){
-            // get username from token
-            String email = tokenProvider.getEmailFromJWT(token);
+            // get user id from token
+            String userId = tokenProvider.getUserIdFromJWT(token);
+
             // load user associated with token
-            UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
+
+            UserDetails userDetails = customUserDetailsService.loadUserById(userId);
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities()
@@ -39,13 +42,17 @@ public class JWTAuthFilter extends OncePerRequestFilter {
             // set spring security
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
+
         filterChain.doFilter(request, response);
     }
 
     // Bearer <accessToken>
     private String getJWTfromRequest(HttpServletRequest request){
+
         String bearerToken = request.getHeader("Authorization");
+
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")){
+
             return bearerToken.substring(7);
         }
         return null;

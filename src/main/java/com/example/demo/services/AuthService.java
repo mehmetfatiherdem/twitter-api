@@ -60,7 +60,6 @@ public class AuthService implements IAuthService{
     @Override
     public JWTAuthResponse signIn(UserLogInDTO dto) {
         User user = userRepo.findByEmail(dto.getEmail());
-
         if(user == null) throw new UserDoesNotExistException(dto.getEmail());
 
         String password = dto.getPassword();
@@ -68,15 +67,16 @@ public class AuthService implements IAuthService{
 
         if(!Password.matchPassword(password, hash)) throw new WrongPasswordException();
 
-        // authenticate here
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 dto.getEmail(), dto.getPassword()));
 
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // get token form tokenProvider
-        String token = tokenProvider.generateToken(authentication);
+        String token = tokenProvider.generateToken(user);
+
 
         return new JWTAuthResponse(token);
 

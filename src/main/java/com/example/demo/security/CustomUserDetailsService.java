@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,12 +23,20 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.userRepo = userRepo;
     }
 
-    //TODO: search why we really need this and can we find another solution
-    //The overridden method is username but we have email in the user entity so I customized it to work it out
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
         User user = userRepo.findByEmail(email);
         if(user == null) throw new UsernameNotFoundException("User not found with username or email:" + email);
+
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+    }
+    public UserDetails loadUserById(String id)throws UsernameNotFoundException{
+
+        UUID uuid = UUID.fromString(id);
+        User user = userRepo.findById(uuid).get();
+
+        if(user == null) throw new UsernameNotFoundException("User not found with username or email:" + uuid);
 
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }

@@ -50,7 +50,6 @@ public class SecurityConfig {
                 .and()
                 .httpBasic(Customizer.withDefaults())
         ;
-
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
