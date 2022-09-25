@@ -1,6 +1,7 @@
 package com.example.demo.security;
 
 import com.example.demo.exception.jwt.JWTException;
+import com.example.demo.model.User;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -17,13 +18,14 @@ public class JWTTokenProvider {
     private int jwtExpirationInMs;
 
     // generate token
-    public String generateToken(Authentication authentication){
-        String email = authentication.getName();
+    public String generateToken(User user){
+        String email = user.getEmail();
+        String id = user.getId().toString();
         Date currentDate = new Date();
         Date expireDate = new Date(currentDate.getTime() + jwtExpirationInMs);
-
+        System.out.println("generate token id " + id);
         String token = Jwts.builder()
-                .setSubject(email)
+                .setSubject(id)
                 .setIssuedAt(new Date())
                 .setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
@@ -37,6 +39,7 @@ public class JWTTokenProvider {
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody();
+        System.out.println("claims get subject => " + claims.getSubject());
         return claims.getSubject();
     }
 

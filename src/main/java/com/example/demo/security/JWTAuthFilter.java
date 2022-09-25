@@ -25,11 +25,14 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // get JWT (token) from http request
         String token = getJWTfromRequest(request);
+        System.out.println("token " + token);
         // validate token
         if(StringUtils.hasText(token) && tokenProvider.validateToken(token)){
             // get username from token
             String email = tokenProvider.getEmailFromJWT(token);
+            System.out.println("email passed to load by username " + email);
             // load user associated with token
+            System.out.println("get email from jwt trigged");
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
@@ -38,14 +41,19 @@ public class JWTAuthFilter extends OncePerRequestFilter {
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             // set spring security
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        }else{
+            System.out.println("token validation failed");
         }
         filterChain.doFilter(request, response);
     }
 
     // Bearer <accessToken>
     private String getJWTfromRequest(HttpServletRequest request){
+        System.out.println("id header => " + request.getHeader("Authorization"));
         String bearerToken = request.getHeader("Authorization");
+       // System.out.println("req header => " + bearerToken);
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")){
+            System.out.println("bearer token => " + bearerToken);
             return bearerToken.substring(7);
         }
         return null;
