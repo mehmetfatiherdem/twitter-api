@@ -5,7 +5,6 @@ import com.example.demo.model.User;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -19,12 +18,10 @@ public class JWTTokenProvider {
 
     // generate token
     public String generateToken(User user){
-        System.out.println("generate token trigged right after sign in");
-        String email = user.getEmail();
         String id = user.getId().toString();
         Date currentDate = new Date();
         Date expireDate = new Date(currentDate.getTime() + jwtExpirationInMs);
-        System.out.println("generate token id " + id);
+
         String token = Jwts.builder()
                 .setSubject(id)
                 .setIssuedAt(new Date())
@@ -34,13 +31,13 @@ public class JWTTokenProvider {
         return token;
     }
 
-    // get email from the token
-    public String getEmailFromJWT(String token){
+    // get user id from the token
+    public String getUserIdFromJWT(String token){
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody();
-        System.out.println("claims get subject => " + claims.getSubject());
+
         return claims.getSubject();
     }
 

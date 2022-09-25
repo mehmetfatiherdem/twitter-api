@@ -25,15 +25,15 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // get JWT (token) from http request
         String token = getJWTfromRequest(request);
-        System.out.println("token " + token);
+
         // validate token
         if(StringUtils.hasText(token) && tokenProvider.validateToken(token)){
-            // get username from token
-            String email = tokenProvider.getEmailFromJWT(token);
-            System.out.println("email passed to load by username " + email);
+            // get user id from token
+            String userId = tokenProvider.getUserIdFromJWT(token);
+
             // load user associated with token
-            System.out.println("get email from jwt trigged");
-            UserDetails userDetails = customUserDetailsService.loadUserById(email);
+
+            UserDetails userDetails = customUserDetailsService.loadUserById(userId);
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities()
@@ -41,19 +41,18 @@ public class JWTAuthFilter extends OncePerRequestFilter {
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             // set spring security
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        }else{
-            System.out.println("token validation failed");
         }
+
         filterChain.doFilter(request, response);
     }
 
     // Bearer <accessToken>
     private String getJWTfromRequest(HttpServletRequest request){
-        System.out.println("id header => " + request.getHeader("Authorization"));
+
         String bearerToken = request.getHeader("Authorization");
-       // System.out.println("req header => " + bearerToken);
+
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")){
-            System.out.println("bearer token => " + bearerToken);
+
             return bearerToken.substring(7);
         }
         return null;

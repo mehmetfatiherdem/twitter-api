@@ -67,24 +67,16 @@ public class AuthService implements IAuthService{
 
         if(!Password.matchPassword(password, hash)) throw new WrongPasswordException();
 
-        // authenticate here
-        System.out.println("before authentication in sign in");
-        // last println here
+
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 dto.getEmail(), dto.getPassword()));
 
-        if(authentication.isAuthenticated()){
-            System.out.println("authenticated");
-        }else{
-            System.out.println("not authed");
-        }
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // get token form tokenProvider
         String token = tokenProvider.generateToken(user);
 
-        System.out.println("token in return " + token);
 
         return new JWTAuthResponse(token);
 
