@@ -19,6 +19,7 @@ public class JWTTokenProvider {
 
     // generate token
     public String generateToken(User user){
+        System.out.println("generate token trigged right after sign in");
         String email = user.getEmail();
         String id = user.getId().toString();
         Date currentDate = new Date();

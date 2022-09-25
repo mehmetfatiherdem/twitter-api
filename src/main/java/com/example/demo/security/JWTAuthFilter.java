@@ -33,7 +33,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
             System.out.println("email passed to load by username " + email);
             // load user associated with token
             System.out.println("get email from jwt trigged");
-            UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
+            UserDetails userDetails = customUserDetailsService.loadUserById(email);
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities()

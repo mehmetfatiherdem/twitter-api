@@ -59,9 +59,7 @@ public class AuthService implements IAuthService{
 
     @Override
     public JWTAuthResponse signIn(UserLogInDTO dto) {
-        System.out.println("sign in trigged with " + dto.getEmail());
         User user = userRepo.findByEmail(dto.getEmail());
-        System.out.println("user email " + user.getEmail());
         if(user == null) throw new UserDoesNotExistException(dto.getEmail());
 
         String password = dto.getPassword();
@@ -70,12 +68,15 @@ public class AuthService implements IAuthService{
         if(!Password.matchPassword(password, hash)) throw new WrongPasswordException();
 
         // authenticate here
-
+        System.out.println("before authentication in sign in");
+        // last println here
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 dto.getEmail(), dto.getPassword()));
 
-        if(authentication == null){
-            System.out.println("authentication null");
+        if(authentication.isAuthenticated()){
+            System.out.println("authenticated");
+        }else{
+            System.out.println("not authed");
         }
 
         SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -33,10 +33,18 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     //TODO: figure out where this is called before jwt auth and gets email as a param even if you pass id
     @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        System.out.println("in loadbyusername method email =====> " + id);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        System.out.println("in loadbyusername method email =====> " + email);
+        User user = userRepo.findByEmail(email);
+        if(user == null) throw new UsernameNotFoundException("User not found with username or email:" + email);
+
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+    }
+
+    public UserDetails loadUserById(String id)throws UsernameNotFoundException{
+        System.out.println("in loaduserbyID method id =====> " + id);
         UUID uuid = UUID.fromString(id);
-         System.out.println("id from str => " + uuid);
+        System.out.println("id from str => " + uuid);
         User user = userRepo.findById(uuid).get();
         System.out.println("user here " + user.getId());
         if(user == null) throw new UsernameNotFoundException("User not found with username or email:" + uuid);
