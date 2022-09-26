@@ -6,6 +6,8 @@ import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -23,6 +25,10 @@ public class UserService implements IUserService{
         var user = userRepo.findById(id).orElseThrow(() -> new UserDoesNotExistException(id.toString()));
 
         return user;
+    }
+
+    public List<User> getAllUsers(){
+        return userRepo.findAll();
     }
 
 }
