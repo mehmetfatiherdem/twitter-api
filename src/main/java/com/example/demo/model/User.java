@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import com.example.demo.utils.Password;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
@@ -186,66 +188,80 @@ public class User {
         this.lastName = lastName;
     }
 
+    @JsonIgnore
     public String getEmail() {
         return email;
     }
 
+    @JsonProperty
     public void setEmail(String email){
             this.email = email;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         String hashedPassword = Password.hash(password);
         this.password = hashedPassword;
 
     }
 
-
+    @JsonIgnore
     public String getProvider() {
         return provider;
     }
 
+    @JsonProperty
     public void setProvider(String provider) {
         this.provider = provider;
     }
 
+    @JsonIgnore
     public String getProviderId() {
         return providerId;
     }
 
+    @JsonProperty
     public void setProviderId(String providerId) {
         this.providerId = providerId;
     }
 
+    @JsonIgnore
     public List<Message> getMessagesSent() {
         return messagesSent;
     }
 
+    @JsonProperty
     public void setMessagesSent(List<Message> messagesSent) {
         this.messagesSent = messagesSent;
     }
 
+    @JsonIgnore
     public List<Message> getMessagesReceived() {
         return messagesReceived;
     }
 
+    @JsonProperty
     public void setMessagesReceived(List<Message> messagesReceived) {
         this.messagesReceived = messagesReceived;
     }
 
+    @JsonIgnore
     public boolean isDeleted() {
         return isDeleted;
     }
 
+    @JsonProperty
     public void setDeleted(boolean deleted) {
         this.isDeleted = deleted;
         this.deletedAt = new Date();
     }
 
+    @JsonIgnore
     public Date getDeletedAt() {
         return deletedAt;
     }
@@ -254,12 +270,28 @@ public class User {
         return createdAt;
     }
 
+    @JsonIgnore
+    public Bookmark getBookmark() {
+        return bookmark;
+    }
+
+    @JsonProperty
     public void setBookmark(Bookmark bookmark) {
         this.bookmark = bookmark;
     }
 
+    @JsonIgnore
+    public MessageList getMessageList() {
+        return messageList;
+    }
+
+    @JsonProperty
     public void setMessageList(MessageList messageList) {
         this.messageList = messageList;
+    }
+
+    public Set<Retweet> getRetweets() {
+        return retweets;
     }
 
     public void setRetweets(Set<Retweet> retweets) {
@@ -270,38 +302,6 @@ public class User {
         this.tweetReplies = tweetReplies;
     }
 
-    public void setThreads(Set<TweetThread> threads) {
-        this.threads = threads;
-    }
-
-    public void setQuoteTweets(Set<QuoteTweet> quoteTweets) {
-        this.quoteTweets = quoteTweets;
-    }
-
-    public void setTrendTopicList(TrendTopicList trendTopicList) {
-        this.trendTopicList = trendTopicList;
-    }
-
-    public void setFollowingList(FollowingList followingList) {
-        this.followingList = followingList;
-    }
-
-    public void setMessageListsBelongTo(Set<MessageList> messageListsBelongTo) {
-        this.messageListsBelongTo = messageListsBelongTo;
-    }
-
-    public Bookmark getBookmark() {
-        return bookmark;
-    }
-
-    public MessageList getMessageList() {
-        return messageList;
-    }
-
-    public Set<Retweet> getRetweets() {
-        return retweets;
-    }
-
     public Set<TweetReply> getTweetReplies() {
         return tweetReplies;
     }
@@ -310,30 +310,57 @@ public class User {
         return threads;
     }
 
+    public void setThreads(Set<TweetThread> threads) {
+        this.threads = threads;
+    }
+
     public Set<QuoteTweet> getQuoteTweets() {
         return quoteTweets;
     }
 
+    public void setQuoteTweets(Set<QuoteTweet> quoteTweets) {
+        this.quoteTweets = quoteTweets;
+    }
+
+    @JsonIgnore
     public TrendTopicList getTrendTopicList() {
         return trendTopicList;
+    }
+
+    @JsonProperty
+    public void setTrendTopicList(TrendTopicList trendTopicList) {
+        this.trendTopicList = trendTopicList;
     }
 
     public FollowingList getFollowingList() {
         return followingList;
     }
 
+    public void setFollowingList(FollowingList followingList) {
+        this.followingList = followingList;
+    }
+
+    @JsonIgnore
     public Set<MessageList> getMessageListsBelongTo() {
         return messageListsBelongTo;
     }
 
+    @JsonProperty
+    public void setMessageListsBelongTo(Set<MessageList> messageListsBelongTo) {
+        this.messageListsBelongTo = messageListsBelongTo;
+    }
+
+    @JsonIgnore
     public Date getUpdatedAt() {
         return updatedAt;
     }
 
+    @JsonIgnore
     public Set<Role> getRoles() {
         return roles;
     }
 
+    @JsonProperty
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
