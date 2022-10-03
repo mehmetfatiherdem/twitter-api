@@ -322,6 +322,18 @@ public class User {
         this.quoteTweets = quoteTweets;
     }
 
+    public Set<Tweet> getTweets() {
+        return tweets;
+    }
+
+    public void setTweets(Set<Tweet> tweets) {
+        this.tweets = tweets;
+    }
+
+    public void addTweet(Tweet tweet){
+        this.tweets.add(tweet);
+    }
+
     @JsonIgnore
     public TrendTopicList getTrendTopicList() {
         return trendTopicList;

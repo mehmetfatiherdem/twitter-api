@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
@@ -25,13 +27,13 @@ public class Tweet {
     private String text;
 
     @Column(name = "like_count")
-    private Long likeCount;
+    private Long likeCount = (long)0;
 
     @Column(name = "retweet_count")
-    private Long retweetCount;
+    private Long retweetCount = (long)0;
 
     @Column(name = "quote_tweet_count")
-    private Long quoteTweetCount;
+    private Long quoteTweetCount = (long)0;
 
     @ManyToMany(mappedBy = "bookmarkedTweets")
     Set<Bookmark> bookmarksBelongTo;
@@ -136,10 +138,12 @@ public class Tweet {
         return deletedAt;
     }
 
+    @JsonIgnore
     public Set<Bookmark> getBookmarksBelongTo() {
         return bookmarksBelongTo;
     }
 
+    @JsonProperty
     public void setBookmarksBelongTo(Set<Bookmark> bookmarksBelongTo) {
         this.bookmarksBelongTo = bookmarksBelongTo;
     }
